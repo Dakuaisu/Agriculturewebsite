@@ -15,7 +15,7 @@ function Navigation(){
             </button>
             <div className="z-50 hidden my-4 text-base list-none bg-text divide-y divide-text rounded-lg shadow dark:bg-white dark:divide-gray-600" id="user-dropdown">
               <div className="px-4 py-3">
-                <span className="block text-sm text-text dark:text-black">Bonnie Green</span>
+                <span className="block text-sm text-text dark:text-black">Bonnie Green</span> 
                 <span className="block text-sm  text-gray-500 truncate dark:text-black">name@flowbite.com</span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
