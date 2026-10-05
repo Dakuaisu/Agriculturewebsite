@@ -162,40 +162,5 @@ def register():
 #         user = User.query.all()
 #         return render_template()
     
-class LearningRoadmap:
-    def __init__(self, crop, amount, location):
-        self.crop = crop
-        self.amount = amount
-        self.location = location
-
-    def get_planting_dates(self):
-        
-        planting_dates = {
-            'wheat': 'October - December',
-            'rice': 'June - July',
-            'corn': 'April - May'
-        }
-        
-
-    def get_tasks(self):
-        pass
-    
-@app.route('/learning-roadmap', methods=['GET', 'POST'])
-def learning_roadmap():
-    if request.method == 'POST':
-        crop = request.form.get('crop')
-        amount = request.form.get('amount')
-        location = request.form.get('location')
-
-        learning_roadmap = LearningRoadmap(crop=crop, amount=amount, location=location)
-        db.session.add(learning_roadmap)
-        db.session.commit()
-
-       # roadmap = generate_roadmap(crop, amount, location)
-
-        return render_template('learning-roadmap.html', roadmap=roadmap)
-
-    return render_template('learning-roadmap.html')
-
 if __name__ == '__main__':
     app.run(debug=True)

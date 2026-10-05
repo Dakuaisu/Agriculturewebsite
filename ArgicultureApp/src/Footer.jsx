@@ -17,9 +17,6 @@ function Footer() {
                     <li>
                         <a href="/WeatherAna.html" className="hover:underline me-4 md:me-6">Weather Analysis</a>
                     </li>
-                    <li>
-                        <a href="/Roadmap.html" className="hover:underline ">RoadMap</a>
-                    </li>
                 </ul>
             </div>
         </footer>
