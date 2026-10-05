@@ -1,34 +1,29 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import numpy as np
+import os
 import pickle
-app = Flask(__name__)
+from pathlib import Path
 
-CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
-with open('model.pkl', 'rb') as f:
+import numpy as np
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
+with open(Path(__file__).parent / "model.pkl", "rb") as f:
     model = pickle.load(f)
 
+app = Flask(__name__)
+CORS(app, origins=os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173").split(","))
 
 
-
-
-@app.route("/predict",methods=['POST'])
+@app.post("/predict")
 def predict():
-    N = request.form['Nitrogen']
-    P = request.form['Phosporus']
-    K = request.form['Potassium']
-    temp = request.form['Temperature']
-    humidity = request.form['Humidity']
-    ph = request.form['ph']
-    rainfall = request.form['Rainfall']
-
-    features = np.array([[N, P, K, temp, humidity, ph, rainfall]], dtype=float)
+    form = request.form
+    features = np.array(
+        [[form["Nitrogen"], form["Phosporus"], form["Potassium"], form["Temperature"],
+          form["Humidity"], form["ph"], form["Rainfall"]]],
+        dtype=float,
+    )
     crop = model.predict(features)[0]
     return jsonify({"result": "{} is the best crop to be cultivated right there".format(crop.capitalize())})
 
 
-app = Flask(__name__, template_folder='templates')
-cors = CORS(app, origins='*')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
