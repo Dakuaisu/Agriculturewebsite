@@ -20,12 +20,14 @@ jobs:
           cache-dependency-path: training/requirements.txt
       - run: pip install -r requirements.txt
       - run: ruff check .
-      - name: Retraining reproduces the committed model report
-        run: |
-          python train.py
-          git diff --exit-code -- evaluation.md feature_ranges.json
+      - run: python train.py
+      - name: Retrain check (report and input ranges unchanged)
+        run: git diff --exit-code -- evaluation.md feature_ranges.json
+      - name: Export check (model.json and sklearn predictions unchanged)
+        run: git diff --exit-code -- model.json sklearn_predictions.json
 
   frontend:
+    needs: training
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,5 +41,7 @@ jobs:
           cache-dependency-path: AgricultureApp/package-lock.json
       - run: npm ci
       - run: npm run lint
+      - name: JS parity test (browser prediction == sklearn on every row)
+        run: npx vitest run src/predict.test.js
       - run: npm test
       - run: npm run build
