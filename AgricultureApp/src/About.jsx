@@ -10,17 +10,18 @@ function About() {
       </p>
       <h2 className="text-xl font-bold">How it works</h2>
       <p>
-        The form sends your values to a small Flask API, which runs a scikit-learn model (10 bagged decision
-        trees) trained on the public{' '}
+        Everything runs in your browser. There&apos;s no server, so nothing to wait for and your values never leave
+        the page. The model is a Gaussian naive Bayes classifier trained with scikit-learn on the public{' '}
         <a className="underline" href="https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset">
           Crop Recommendation Dataset
         </a>{' '}
-        by Atharva Ingle (2,200 rows, 100 per crop, Apache 2.0).
+        by Atharva Ingle (2,200 rows, 100 per crop, Apache 2.0). It&apos;s exported to a small JSON file, and a
+        test checks that the browser gives exactly the same answer as scikit-learn on every row of the dataset.
       </p>
       <h2 className="text-xl font-bold">Limits</h2>
       <p>
-        The model scores about 99% on held-out data, but that says more about the dataset than the model: a
-        plain naive Bayes classifier does at least as well. The dataset was built by augmenting Indian rainfall,
+        The model scores about 99% on held-out data, but that says more about the dataset than the model:
+        decision trees score about the same, and naive Bayes was picked for simplicity, not accuracy. The dataset was built by augmenting Indian rainfall,
         climate and fertiliser data, and the method isn&apos;t documented, so treat it as partly synthetic.
         Inputs are limited to the ranges seen in that data. This is a student project, not agronomic advice.
       </p>
