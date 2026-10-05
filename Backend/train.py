@@ -1,5 +1,5 @@
 """Train the crop model from data/Crop_recommendation.csv and write model.pkl,
-model.json, feature_ranges.json and evaluation.md."""
+model.json, sklearn_predictions.json, feature_ranges.json and evaluation.md."""
 
 import json
 import math
@@ -61,7 +61,8 @@ def markdown_confusion(labels, cm):
 
 
 def main():
-    df = pd.read_csv(DATA)
+    # round_trip parsing gives correctly rounded floats, matching JavaScript's Number()
+    df = pd.read_csv(DATA, float_precision="round_trip")
     X, y = df[FEATURES].to_numpy(), df["label"].to_numpy()
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, stratify=y, random_state=SEED
@@ -92,6 +93,7 @@ def main():
     with open(HERE / "model.pkl", "wb") as f:
         pickle.dump(model, f)
     (HERE / "model.json").write_text(json.dumps(export_model(model), indent=1) + "\n")
+    (HERE / "sklearn_predictions.json").write_text(json.dumps(model.predict(X).tolist()) + "\n")
     (HERE / "feature_ranges.json").write_text(json.dumps(feature_ranges(df), indent=2) + "\n")
 
     errors = [
