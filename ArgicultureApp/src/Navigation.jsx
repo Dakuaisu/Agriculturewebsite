@@ -48,9 +48,6 @@ function Navigation(){
             <li>
               <a href="../About.html" className="block py-2 px-3 text-text rounded hover:bg-text md:hover:bg-transparent md:hover:text-primary md:p-0 dark:text-text md:dark:hover:text-primary dark:hover:bg-secondary dark:hover:text-text md:dark:hover:bg-transparent dark:border-secondary">About</a>
             </li>
-            <li>
-              <a href="../Services.html" className="block py-2 px-3 text-text rounded hover:bg-text md:hover:bg-transparent md:hover:text-primary md:p-0 dark:text-text md:dark:hover:text-primary dark:hover:bg-secondary dark:hover:text-text md:dark:hover:bg-transparent dark:border-secondary">Services</a>
-            </li>
             {/* <li>
               <a href="#" className="block py-2 px-3 text-text rounded hover:bg-text md:hover:bg-transparent md:hover:text-primary md:p-0 dark:text-text md:dark:hover:text-primary dark:hover:bg-secondary dark:hover:text-text md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
             </li>

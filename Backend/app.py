@@ -61,8 +61,6 @@ def predict():
 
 app = Flask(__name__, template_folder='templates')
 cors = CORS(app, origins='*')
-app.config['SMS_API_KEY'] = 'thisisthesecretsmsapikey'
-# sms=SMS(app)
 
 if __name__ == '__main__':
     app.run(debug=True)

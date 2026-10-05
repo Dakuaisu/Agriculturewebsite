@@ -9,13 +9,7 @@ function Footer() {
                         <a href="/About.html" className="hover:underline me-4 md:me-6">About</a>
                     </li>
                     <li>
-                        <a href="/Services.html" className="hover:underline me-4 md:me-6">Services</a>
-                    </li>
-                    <li>
                         <a href="/CropRecc.html" className="hover:underline me-4 md:me-6">Crop Recommendation</a>
-                    </li>
-                    <li>
-                        <a href="/WeatherAna.html" className="hover:underline me-4 md:me-6">Weather Analysis</a>
                     </li>
                 </ul>
             </div>
