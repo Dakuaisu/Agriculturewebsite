@@ -14,6 +14,7 @@ function Navigation() {
         </NavLink>
         <div className="flex gap-1">
           <NavLink to="/" end className={linkClass}>Recommend</NavLink>
+          <NavLink to="/about" className={linkClass}>About</NavLink>
         </div>
       </div>
     </nav>
