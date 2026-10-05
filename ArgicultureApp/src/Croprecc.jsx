@@ -2,12 +2,15 @@ import { useState } from 'react'
 import axios from 'axios'
 import { FIELDS, validate } from './validation'
 
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5000'
 const EMPTY = Object.fromEntries(FIELDS.map((f) => [f.key, '']))
 
 function Croprecc() {
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [crop, setCrop] = useState(null)
+  const [failure, setFailure] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,14 +23,25 @@ function Croprecc() {
     const { errors: found, payload } = validate(values)
     setErrors(found)
     if (Object.keys(found).length) return
-    const response = await axios.post('http://127.0.0.1:5000/predict', payload)
-    setCrop(response.data.crop)
+    setFailure(null)
+    setLoading(true)
+    try {
+      const response = await axios.post(`${API_URL}/predict`, payload, { timeout: 90000 })
+      setCrop(response.data.crop)
+    } catch (err) {
+      if (err.response?.data?.errors) setErrors(err.response.data.errors)
+      else if (err.response) setFailure(`The server returned an error (${err.response.status}). Please try again.`)
+      else setFailure('Could not reach the prediction server. The free host sleeps when idle and can take up to a minute to wake up; please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const reset = () => {
     setCrop(null)
     setValues(EMPTY)
     setErrors({})
+    setFailure(null)
   }
 
   return (
@@ -55,10 +69,11 @@ function Croprecc() {
             {errors[key] && <p id={`${key}-error`} className="mt-1 text-sm text-red-700">{errors[key]}</p>}
           </div>
         ))}
-        <button type="submit" className="rounded-lg bg-secondary px-5 py-2.5 font-medium text-white hover:bg-primary sm:col-span-2">
-          Recommend a crop
+        <button type="submit" disabled={loading} className="rounded-lg bg-secondary px-5 py-2.5 font-medium text-white hover:bg-primary disabled:opacity-60 sm:col-span-2">
+          {loading ? 'Asking the model…' : 'Recommend a crop'}
         </button>
       </form>
+      {failure && <p className="mt-4 rounded-lg bg-red-100 p-3 text-red-800" role="alert">{failure}</p>}
       {crop && (
         <div className="mt-6 rounded-lg bg-white/80 p-4 shadow" role="status">
           <p className="text-lg">Recommended crop: <strong className="capitalize">{crop}</strong></p>
