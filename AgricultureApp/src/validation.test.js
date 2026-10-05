@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import ranges from '../../Backend/feature_ranges.json'
+import ranges from '../../training/feature_ranges.json'
 import { FIELDS, validate } from './validation'
 
 const RICE = { N: '90', P: '42', K: '43', temperature: '20.88', humidity: '82', ph: '6.5', rainfall: '202.9' }

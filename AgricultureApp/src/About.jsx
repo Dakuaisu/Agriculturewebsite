@@ -26,7 +26,7 @@ function About() {
       </p>
       <p>
         Full numbers and the confusion matrix are in the{' '}
-        <a className="underline" href={`${REPO}/blob/main/Backend/evaluation.md`}>evaluation report</a>.
+        <a className="underline" href={`${REPO}/blob/main/training/evaluation.md`}>evaluation report</a>.
       </p>
       <h2 className="text-xl font-bold">Authors</h2>
       <p>Adnan Rashid, Anushikha Singh and Utkarsh Dwivedi.</p>

@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import model from '../../Backend/model.json'
-import sklearnPredictions from '../../Backend/sklearn_predictions.json'
+import model from '../../training/model.json'
+import sklearnPredictions from '../../training/sklearn_predictions.json'
 import { predict } from './predict'
 
-const csv = readFileSync(new URL('../../Backend/data/Crop_recommendation.csv', import.meta.url), 'utf8')
+const csv = readFileSync(new URL('../../training/data/Crop_recommendation.csv', import.meta.url), 'utf8')
 const [header, ...lines] = csv.trim().split('\n')
 const columns = header.split(',')
 const rows = lines.map((line) => {

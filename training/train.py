@@ -1,9 +1,8 @@
-"""Train the crop model from data/Crop_recommendation.csv and write model.pkl,
-model.json, sklearn_predictions.json, feature_ranges.json and evaluation.md."""
+"""Train the crop model from data/Crop_recommendation.csv and write model.json,
+sklearn_predictions.json, feature_ranges.json and evaluation.md."""
 
 import json
 import math
-import pickle
 from pathlib import Path
 
 import numpy as np
@@ -90,8 +89,6 @@ def main():
     n_errors = int((pred != y_test).sum())
     bagging_errors = baseline_errors["Bagged decision trees (10, the 2024 model type)"]
 
-    with open(HERE / "model.pkl", "wb") as f:
-        pickle.dump(model, f)
     (HERE / "model.json").write_text(json.dumps(export_model(model), indent=1) + "\n")
     (HERE / "sklearn_predictions.json").write_text(json.dumps(model.predict(X).tolist()) + "\n")
     (HERE / "feature_ranges.json").write_text(json.dumps(feature_ranges(df), indent=2) + "\n")

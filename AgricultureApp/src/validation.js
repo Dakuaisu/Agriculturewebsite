@@ -1,4 +1,4 @@
-import ranges from '../../Backend/feature_ranges.json'
+import ranges from '../../training/feature_ranges.json'
 
 export const FIELDS = [
   { key: 'N', label: 'Nitrogen (N)', step: 1 },

@@ -1,4 +1,4 @@
-import model from '../../Backend/model.json'
+import model from '../../training/model.json'
 
 // Mirrors sklearn GaussianNB._joint_log_likelihood + argmax; var already includes epsilon.
 export function predict(values, m = model) {
