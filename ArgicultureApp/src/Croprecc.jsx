@@ -20,14 +20,16 @@ function Croprecc(){
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5000/predict', formData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+      const response = await axios.post('http://127.0.0.1:5000/predict', {
+        N: Number(formData.Nitrogen),
+        P: Number(formData.Phosporus),
+        K: Number(formData.Potassium),
+        temperature: Number(formData.Temperature),
+        humidity: Number(formData.Humidity),
+        ph: Number(formData.ph),
+        rainfall: Number(formData.Rainfall)
       });
-      setResult(response.data.result); 
-      console.log(response.data.result);
-      // Handle response data as needed
+      setResult(`${response.data.crop} is the best crop to be cultivated right there`);
     
     } catch (error) {
       console.error('Error:',error);
