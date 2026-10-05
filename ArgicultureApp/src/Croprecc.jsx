@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { FIELDS, validate } from './validation'
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const EMPTY = Object.fromEntries(FIELDS.map((f) => [f.key, '']))
 
 function Croprecc() {
