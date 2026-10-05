@@ -2,7 +2,7 @@ const REPO = 'https://github.com/Dakuaisu/Agriculturewebsite'
 
 function About() {
   return (
-    <article className="mx-auto max-w-xl space-y-4 rounded-lg bg-white/60 p-4 text-gray-900 shadow sm:p-6">
+    <article className="mx-auto max-w-xl space-y-4 rounded-lg bg-white/60 p-4 text-gray-900 shadow-sm sm:p-6">
       <h1 className="text-3xl font-extrabold text-background">About</h1>
       <p>
         AgriApp suggests one of 22 crops from seven numbers: soil nitrogen, phosphorus and potassium,
