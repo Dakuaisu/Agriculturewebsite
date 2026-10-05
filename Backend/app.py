@@ -1,10 +1,7 @@
-from flask import Flask,request,render_template,jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
-import pandas
-import sklearn
 import pickle
-from flask import Flask, render_template, url_for, request, jsonify
 app = Flask(__name__)
 
 CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
@@ -16,20 +13,8 @@ ms = pickle.load(open('minmaxscaler.pkl','rb'))
 
 
 
-@app.route("/",methods=['GET'])
-def out():
-    return jsonify(
-        {
-            "aa":"dfsdsf"
-        }
-    )
-
-
-
 @app.route("/predict",methods=['POST'])
 def predict():
-    print(request.form)
-
     N = request.form['Nitrogen']
     P = request.form['Phosporus']
     K = request.form['Potassium']
