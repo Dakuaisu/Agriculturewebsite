@@ -28,7 +28,7 @@ flask --app app run --port 5001     # macOS uses port 5000 for AirPlay
 Frontend (Node 22):
 
 ```sh
-cd ArgicultureApp
+cd AgricultureApp
 npm ci
 VITE_API_URL=http://localhost:5001 npm run dev
 ```
@@ -39,7 +39,7 @@ Checks (the same ones CI runs):
 
 ```sh
 cd Backend && ruff check . && pytest -q
-cd ArgicultureApp && npm run lint && npm test && npm run build
+cd AgricultureApp && npm run lint && npm test && npm run build
 ```
 
 ## Retrain the model

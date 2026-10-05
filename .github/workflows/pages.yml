@@ -22,14 +22,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     defaults:
       run:
-        working-directory: ArgicultureApp
+        working-directory: AgricultureApp
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ArgicultureApp/package-lock.json
+          cache-dependency-path: AgricultureApp/package-lock.json
       - run: npm ci
       - run: npm run build
         env:
@@ -37,6 +37,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ArgicultureApp/dist
+          path: AgricultureApp/dist
       - id: deployment
         uses: actions/deploy-pages@v4

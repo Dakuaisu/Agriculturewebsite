@@ -1,6 +1,6 @@
 # Audit
 
-Every finding below was checked against the code at commit `c55d0f8`. Where a finding says "verified", the behaviour was reproduced. Backend routes were exercised with Flask's test client using the package versions found in the committed venv. The model was evaluated on the public dataset (see F02).
+Every finding below was checked against the code at commit `c55d0f8`. Paths refer to that layout; `ArgicultureApp/` was later renamed `AgricultureApp/` (F30). Where a finding says "verified", the behaviour was reproduced. Backend routes were exercised with Flask's test client using the package versions found in the committed venv. The model was evaluated on the public dataset (see F02).
 
 | ID | Severity | Finding | File:line | Fix |
 |----|----------|---------|-----------|-----|
