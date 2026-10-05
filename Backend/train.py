@@ -1,5 +1,5 @@
 """Train the crop model from data/Crop_recommendation.csv and write model.pkl,
-feature_ranges.json and evaluation.md."""
+model.json, feature_ranges.json and evaluation.md."""
 
 import json
 import math
@@ -34,6 +34,22 @@ def feature_ranges(df):
         hi = math.ceil(df[f].max() / step) * step
         ranges[f] = {"min": round(lo, 1), "max": round(hi, 1)}
     return ranges
+
+
+def export_model(model):
+    return {
+        "type": "GaussianNB",
+        "sklearn_version": sklearn.__version__,
+        "features": FEATURES,
+        "preprocessing": [],
+        "classes": model.classes_.tolist(),
+        "class_prior": model.class_prior_.tolist(),
+        "theta": model.theta_.tolist(),
+        # sklearn adds epsilon to var_ during fit, so var is used as-is at predict time
+        "var": model.var_.tolist(),
+        "epsilon": float(model.epsilon_),
+        "var_smoothing": model.var_smoothing,
+    }
 
 
 def markdown_confusion(labels, cm):
@@ -75,6 +91,7 @@ def main():
 
     with open(HERE / "model.pkl", "wb") as f:
         pickle.dump(model, f)
+    (HERE / "model.json").write_text(json.dumps(export_model(model), indent=1) + "\n")
     (HERE / "feature_ranges.json").write_text(json.dumps(feature_ranges(df), indent=2) + "\n")
 
     errors = [
