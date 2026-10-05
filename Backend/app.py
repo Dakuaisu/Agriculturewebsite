@@ -5,9 +5,8 @@ import pickle
 app = Flask(__name__)
 
 CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
-model = pickle.load(open('model.pkl','rb'))
-sc = pickle.load(open('standscaler.pkl','rb'))
-ms = pickle.load(open('minmaxscaler.pkl','rb'))
+with open('model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 
 
@@ -23,25 +22,9 @@ def predict():
     ph = request.form['ph']
     rainfall = request.form['Rainfall']
 
-    feature_list = [N, P, K, temp, humidity, ph, rainfall]
-    single_pred = np.array(feature_list).reshape(1, -1)
-
-    scaled_features = ms.transform(single_pred)
-    final_features = sc.transform(scaled_features)
-    prediction = model.predict(final_features)
-
-    crop_dict = {1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut", 6: "Papaya", 7: "Orange",
-                 8: "Apple", 9: "Muskmelon", 10: "Watermelon", 11: "Grapes", 12: "Mango", 13: "Banana",
-                 14: "Pomegranate", 15: "Lentil", 16: "Blackgram", 17: "Mungbean", 18: "Mothbeans",
-                 19: "Pigeonpeas", 20: "Kidneybeans", 21: "Chickpea", 22: "Coffee"}
-
-    if prediction[0] in crop_dict:
-        crop = crop_dict[prediction[0]]
-        
-        return jsonify({"result" : "{} is the best crop to be cultivated right there".format(crop)})
-    else:
-        return jsonify({"result" : "Sorry, we could not determine the best crop to be cultivated with the provided data."})
-
+    features = np.array([[N, P, K, temp, humidity, ph, rainfall]], dtype=float)
+    crop = model.predict(features)[0]
+    return jsonify({"result": "{} is the best crop to be cultivated right there".format(crop.capitalize())})
 
 
 app = Flask(__name__, template_folder='templates')

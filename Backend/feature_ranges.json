@@ -1,0 +1,30 @@
+{
+  "N": {
+    "min": 0,
+    "max": 140
+  },
+  "P": {
+    "min": 5,
+    "max": 145
+  },
+  "K": {
+    "min": 5,
+    "max": 205
+  },
+  "temperature": {
+    "min": 8,
+    "max": 44
+  },
+  "humidity": {
+    "min": 14,
+    "max": 100
+  },
+  "ph": {
+    "min": 3.5,
+    "max": 10.0
+  },
+  "rainfall": {
+    "min": 20,
+    "max": 299
+  }
+}
